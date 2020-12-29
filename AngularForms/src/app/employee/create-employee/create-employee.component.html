@@ -1,0 +1,75 @@
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="card">
+      <div class="card-header">
+        <h3>Create Employee</h3>
+      </div>
+
+      <div class="row justify-content-center card-body">
+
+        <div class="col col-2">
+          <label for="fullName">Full Name</label>
+        </div>
+        <div class="col col-10">
+          <input id="fullName" formControlName="fullName" type="text" class="form-control">
+          <!-- <span *ngIf="employeeForm.fullName.value" class="error-block">
+            Please provide name.
+          </span> -->
+        </div>
+
+        <div class="col col-2">
+          <label for="email">Email</label>
+        </div>
+        <div class="col col-10">
+          <input id="email" formControlName="email" type="text" class="form-control">
+          <!-- <span *ngIf="employeeForm.get('email')">
+            Please provide email.
+          </span> -->
+        </div>
+
+        <!-- <span *ngIf="!registrationForm.get('userName').valid && registrationForm.get('userName').touched" class="error-block"> -->
+
+
+        <div formGroupName="skills">
+          <div class="row mt-2">
+            <div class="col col-2">
+              <label>Skill</label>
+            </div>
+            <div class="col col-4">
+              <input type="text" class="form-control" id="skillName" placeholder="Name" formControlName="skillName">
+            </div>
+            <div class="col col-4">
+              <input type="text" class="form-control" placeholder="experienceInYears"
+                formControlName="experienceInYears">
+            </div>
+
+            <div>
+              <label class="col-md-2">Proficiency</label>
+              <div class="col-md-8">
+                <label class="radio-inline">
+                  <input type="radio" class="col-md-2" id="proficiency" value="beginner" formControlName="proficiency">
+                  Beginner
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" class="col-md-2" id="proficiency" value="intermediate"
+                    formControlName="proficiency">
+                  Intermediate
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" class="col-md-2" id="proficiency" value="advanced" formControlName="proficiency">
+                  Advanced
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary m-2" type="button" (click)=onLoadDataClick()>Load Data</button>
+        <button class="btn btn-primary" type="button" (click)=onPatchValueClick()>Patch Data</button>
+      </div>
+    </div>
+  </div>
+</form>
