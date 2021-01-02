@@ -12,8 +12,19 @@
         </div>
         <div class="col col-10">
           <input id="fullName" formControlName="fullName" type="text" class="form-control">
-          <!-- <span *ngIf="employeeForm.fullName.value" class="error-block">
+          <label>{{fullNameLength}}</label>
+          <span *ngIf="employeeForm.controls.fullName.invalid && employeeForm.controls.fullName.touched" class="error-block">
             Please provide name.
+          </span>
+
+          <!-- <span *ngIf="employeeForm.controls.fullName.errors?.minlength" class="error-block">
+            Full name should be greater than 1 character and less than 10 characters
+          </span> -->
+
+
+          <!-- <span *ngIf="employeeForm.controls.fullName.errors.minlength ||
+                employeeForm.controls.fullName.errors.maxlength" class="error-block">
+            Full name should be greater than 1 character and less than 10 characters
           </span> -->
         </div>
 
@@ -22,12 +33,10 @@
         </div>
         <div class="col col-10">
           <input id="email" formControlName="email" type="text" class="form-control">
-          <!-- <span *ngIf="employeeForm.get('email')">
+          <span *ngIf="employeeForm.controls.email.invalid && employeeForm.controls.email.touched">
             Please provide email.
-          </span> -->
+          </span>
         </div>
-
-        <!-- <span *ngIf="!registrationForm.get('userName').valid && registrationForm.get('userName').touched" class="error-block"> -->
 
 
         <div formGroupName="skills">
@@ -51,8 +60,7 @@
                   Beginner
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" class="col-md-2" id="proficiency" value="intermediate"
-                    formControlName="proficiency">
+                  <input type="radio" class="col-md-2" id="proficiency" value="intermediate" formControlName="proficiency">
                   Intermediate
                 </label>
                 <label class="radio-inline">
@@ -66,7 +74,7 @@
       </div>
 
       <div class="card-footer">
-        <button class="btn btn-primary" type="submit">Save</button>
+        <button class="btn btn-primary" type="submit" [disabled]='employeeForm.invalid'>Save</button>
         <button class="btn btn-primary m-2" type="button" (click)=onLoadDataClick()>Load Data</button>
         <button class="btn btn-primary" type="button" (click)=onPatchValueClick()>Patch Data</button>
       </div>

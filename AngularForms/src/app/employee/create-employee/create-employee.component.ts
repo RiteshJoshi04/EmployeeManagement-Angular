@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-create-employee',
@@ -8,6 +13,8 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class CreateEmployeeComponent implements OnInit {
   employeeForm: FormGroup;
+  fullNameLength: number = 0;
+
   constructor(private fb: FormBuilder) {} //FormBuilder is present as a service so we need to inject it in order to use it
 
   ngOnInit(): void {
@@ -25,24 +32,26 @@ export class CreateEmployeeComponent implements OnInit {
 
     // Using Form Builder class
     this.createEmployee();
+    this.employeeForm.get('fullName')?.valueChanges.subscribe((value: string) => {
+      this.fullNameLength = value.length;
+    });
   }
 
-  createEmployee(){
+  createEmployee() {
     this.employeeForm = this.fb.group({
-      fullName: ['', Validators.required],
-      email: [''],
-      skills: this.fb.group({
-        skillName: [''],
-        experienceInYears: [''],
-        proficiency: ['beginner'],
+      'fullName': ['', [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      'email': ['', Validators.required],
+      'skills': this.fb.group({
+        'skillName': ['', Validators.required],
+        'experienceInYears': ['', Validators.required],
+        'proficiency': ['beginner', Validators.required],
       }),
     });
   }
 
   onSubmit() {
-    // var fullName = this.employeeForm.fullName?.value();
-    console.log(this.employeeForm.value);
-    // console.log(this.employeeForm.controls.fullName.value);
+    console.log(this.employeeForm);
+
   }
 
   onLoadDataClick(): void {
